@@ -1,0 +1,84 @@
+{
+  "name": "ground-detection-model",
+  "displayName": "LiDAR Ground Detection",
+  "version": "v0.0.0",
+  "scope": "public",
+  "description": "LiDAR Ground detection model",
+  "codebase": {
+    "type": "git",
+    "gitUrl": "https://github.com/dataloop-ai-apps/GndNet",
+    "gitTag": "v0.0.0"
+  },
+  "attributes": {
+    "provider": "Dataloop",
+    "category": "Model",
+    "Media Type": "Other"
+  },
+  "components": {
+    "computeConfigs": [
+      {
+        "name": "ground-detection-deploy",
+        "runtime": {
+          "podType": "gpu-t4",
+          "concurrency": 1,
+          "runnerImage": "dataloopai/dtlpy-agent:gpu.cuda.11.8.py3.8.pytorch2",
+          "autoscaler": {
+            "type": "rabbitmq",
+            "minReplicas": 0,
+            "maxReplicas": 2
+          }
+        }
+      }
+    ],
+    "modules": [
+      {
+        "name": "ground-detection-module",
+        "entryPoint": "model_adapter.py",
+        "className": "ModelAdapter",
+        "computeConfig": "ground-detection-deploy",
+        "description": "Ground Detection Module",
+        "initInputs": [
+          {
+            "type": "Model",
+            "name": "model_entity"
+          }
+        ],
+        "functions": [
+          {
+            "name": "predict_items",
+            "input": [
+              {
+                "type": "Item[]",
+                "name": "items",
+                "description": "List of Lidar Scenes (Frames.json) to run inference on"
+              }
+            ],
+            "output": [],
+            "displayName": "Predict Items",
+            "displayIcon": "",
+            "description": "LiDAR Ground Detection"
+          }
+        ]
+      }
+    ],
+    "models": [
+      {
+        "name": "gndnet-ground-detection",
+        "moduleName": "ground-detection-module",
+        "scope": "project",
+        "status": "trained",
+        "configuration": {
+          "weights_filename": "checkpoint.pth.tar",
+          "config_filename": "config_kittiSem.yaml"
+        },
+        "description": "GndNet: Fast Ground plane Estimation and Point Cloud Segmentation for Autonomous Vehicles.",
+        "supportedMethods": {
+          "load": true,
+          "predict": true,
+          "train": false,
+          "evaluate": false
+        }
+      }
+    ]
+  }
+}
