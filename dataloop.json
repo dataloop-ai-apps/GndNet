@@ -1,13 +1,13 @@
 {
   "name": "ground-detection-model",
   "displayName": "LiDAR Ground Detection",
-  "version": "v0.0.0",
+  "version": "v0.1.0",
   "scope": "public",
   "description": "LiDAR Ground detection model",
   "codebase": {
     "type": "git",
     "gitUrl": "https://github.com/dataloop-ai-apps/GndNet",
-    "gitTag": "v0.0.0"
+    "gitTag": "v0.1.0"
   },
   "attributes": {
     "provider": "Dataloop",
