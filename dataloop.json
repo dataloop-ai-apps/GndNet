@@ -12,7 +12,8 @@
   "attributes": {
     "provider": "Dataloop",
     "category": "Model",
-    "Media Type": "Other"
+    "Media Type": "LiDAR",
+    "License": "MIT"
   },
   "components": {
     "computeConfigs": [
