@@ -10,8 +10,8 @@
     "gitTag": "v0.1.2"
   },
   "attributes": {
-    "provider": "Dataloop",
-    "category": "Model",
+    "Provider": "Dataloop",
+    "Category": "Model",
     "Media Type": "LiDAR",
     "License": "MIT"
   },
