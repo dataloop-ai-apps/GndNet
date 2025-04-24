@@ -94,15 +94,20 @@ class ModelAdapter(dl.BaseModelAdapter):
                             return file_path
 
     def map_pcd_by_id(self, item: dl.Item, local_path):
+        buffer = item.download(save_locally=False)
+        mapping_data = json.loads(buffer.getvalue())
+        pcd_item_ids = []
+        for frame_num, frame_details in enumerate(mapping_data.get('frames')):
+            pcd_id = frame_details.get('lidar', dict()).get('lidar_pcd_id', None)
+            if pcd_id is not None:
+                pcd_item_ids.append(pcd_id)
         self.logger.info("Starting data download")
         time_started = time.time()
         filters = dl.Filters()
-        filters.add(field='metadata.system.mimetype', values='*pcd')
+        filters.add(field='id', values=pcd_item_ids, operator=dl.FiltersOperations.IN)
         item.dataset.items.download(filters=filters,
                                     local_path=local_path,
                                     annotation_options=dl.ViewAnnotationOptions.JSON)
-        buffer = item.download(save_locally=False)
-        mapping_data = json.loads(buffer.getvalue())
         for frame_num, frame_details in enumerate(mapping_data.get('frames')):
             local_file_path = frame_details.get('lidar', dict()).get('remote_path', None)
             if local_file_path is not None and len(local_file_path) > 1:
