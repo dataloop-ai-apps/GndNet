@@ -21,19 +21,19 @@ The ground detection model is based on [GndNet](https://github.com/anshulpaigwar
 
 ## How to use locally
 
-1. Clone the repository
+1. Clone the repository, using the command:
 ```bash
 git clone https://github.com/dataloop-ai-apps/GndNet
 ```
 
-2. Run the commands on the [build.sh](build.sh) file:
+2. Setup a python environment and run the commands on the [build.sh](build.sh) file:
 ```bash
 pip install -r requirements.txt
 pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
 ```
 
-3. On a given remote `dl.Item`, run the following script:
-```bash
+3. Copy the following script to a new python file, for example `run.py`:
+```python
 import dtlpy as dl
 from model_adapter import ModelAdapter
 
@@ -45,3 +45,5 @@ if __name__ == '__main__':
     model_adapter.load(local_path=None)
     model_adapter.predict_items(items=[item])
 ```
+
+4. Run the above script on the requested `dl.Item`.
