@@ -46,12 +46,12 @@ class ModelAdapter(dl.BaseModelAdapter):
                 raise FileNotFoundError(f"Could not find checkpoint file at {self.checkpoint}")
         if os.path.isfile(config):
             with open(config) as f:
-                config_dict = yaml.load(f, Loader=yaml.FullLoader)
+                config_dict = yaml.safe_load(f)
         self.cfg = ConfigClass(**config_dict)
         self.cfg.batch_size = 1
         self.model = GroundEstimatorNet(self.cfg).cuda()
         if os.path.isfile(self.checkpoint):
-            checkpoint = torch.load(self.checkpoint)
+            checkpoint = torch.load(self.checkpoint, weights_only=True)
             self.start_epoch = checkpoint['epoch']
             self.model.load_state_dict(checkpoint['state_dict'])
 

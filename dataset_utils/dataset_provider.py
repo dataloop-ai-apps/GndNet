@@ -179,7 +179,7 @@ def get_train_loader(data_dir, batch = 4, skip = 1):
 if __name__ == '__main__':
 
 	with open('config/config_kittiSem.yaml') as f:
-		config_dict = yaml.load(f, Loader=yaml.FullLoader)
+		config_dict = yaml.safe_load(f)
 
 	class ConfigClass:
 		def __init__(self, **entries):
