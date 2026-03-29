@@ -59,7 +59,7 @@ args = parser.parse_args()
 if os.path.isfile(args.config):
     print("using config file:", args.config)
     with open(args.config) as f:
-        config_dict = yaml.load(f, Loader=yaml.FullLoader)
+        config_dict = yaml.safe_load(f)
 
     class ConfigClass:
         def __init__(self, **entries):
@@ -80,7 +80,7 @@ model = GroundEstimatorNet(cfg).cuda()
 if args.resume:
     if os.path.isfile(args.resume):
         print("=> loading checkpoint '{}'".format(args.resume))
-        checkpoint = torch.load(args.resume)
+        checkpoint = torch.load(args.resume, weights_only=True)
         model.load_state_dict(checkpoint['state_dict'])
         print("=> loaded checkpoint '{}' (epoch {})"
               .format(args.resume, checkpoint['epoch']))

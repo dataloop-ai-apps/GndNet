@@ -30,7 +30,7 @@ plt.ion()
 
 # with open('config/config.yaml') as f:
 with open('config/config_kittiSem.yaml') as f:
-	config_dict = yaml.load(f)
+	config_dict = yaml.safe_load(f)
 
 class ConfigClass:
 	def __init__(self, **entries):
