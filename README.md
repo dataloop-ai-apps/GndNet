@@ -1,4 +1,4 @@
-# Dataloop Lidar Ground Detection
+# DDOE Lidar Ground Detection
 
 
 <img align="middle" src="https://dataloop.ai/wp-content/uploads/2020/03/logo.svg">

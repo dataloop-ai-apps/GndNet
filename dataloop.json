@@ -10,7 +10,7 @@
     "gitTag": "v0.1.3"
   },
   "attributes": {
-    "Provider": "Dataloop",
+    "Provider": "DDOE",
     "Category": "Model",
     "Media Type": "LiDAR",
     "License": "MIT"
